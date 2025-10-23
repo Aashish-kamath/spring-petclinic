@@ -1,10 +1,7 @@
 pipeline {
     agent any
-    tools {
-        maven 'M3'
-    }
     environment {
-        DOCKER_IMAGE = "8164/spring-petclinic:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "aashishkamath/spring-petclinic:${BUILD_NUMBER}"
     }
     stages {
         stage('Checkout') {
@@ -14,7 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package -DskipTests -Dnative.skip=true'
             }
         }
         stage('Docker Build') {
